@@ -30,6 +30,12 @@ function Backpack(
   };
 }
 
+function Monitor(size, brand, resolution) {
+  this.size = size;
+  this.brand = brand;
+  this.resolution = resolution;
+}
+
 const everydayPack = new Backpack(
   "Everyday Backpack",
   30,
@@ -39,3 +45,8 @@ const everydayPack = new Backpack(
   26,
   false
 );
+
+const newMonitor = new Monitor(29, "TLC", "1080P");
+
+console.log(everydayPack.color);
+console.log(newMonitor.resolution);
