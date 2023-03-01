@@ -34,6 +34,7 @@ const backpack = {
   },
 };
 
+
 const markup = (backpack) => {
   return `
   <div>
