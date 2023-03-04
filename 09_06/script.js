@@ -71,6 +71,9 @@ const backpackList = backpackObjectArray.map((backpack) => {
   let newArg = "The argument I want to pass to the callback function!"
 
   // Add event listener
+  // button.addEventListener("click", (event) => {
+  //   lidToggle(event, button, newArg)
+  // })
   button.addEventListener("click", (event) => {
     lidToggle(event, button, newArg)
   })
