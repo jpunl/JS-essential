@@ -102,10 +102,10 @@ fetchProducts();
 
 fetch("https://jsonplaceholder.typicode.com/posts/1")
     .then((response) => response.json())
-    .then((json) => { 
-        console.log(json); 
+    .then((json) => {
+        console.log(json);
     })
-    .catch((error) => { 
+    .catch((error) => {
         console.error(error);
     })
     .finally(() => {
@@ -113,10 +113,68 @@ fetch("https://jsonplaceholder.typicode.com/posts/1")
     });
 
 
+// async function f() {
+//     const response = await fetch("http://...");
+//     const json = await response.json();
+//     console.log(json);
+// }
+// f();
+
+// trap #1
+// async function f() {
+//     const a = await fetch("http://.../post/1");
+//     const b = await fetch("http://.../post/2");
+//     // doesn't work
+//     // break two fetch() parallel
+// }
+
 async function f() {
-    const response = await fetch("http://...");
-    const json = await response.json();
-    console.log(json);
+    const promiseA = fetch("http://.../post/1");
+    const promiseB = fetch("http://.../post/2");
+
+    const [a, b] = await Promise.all([promiseA, promiseB]);
 }
 
-f();
+// trap #2
+// async function f2() {
+//     // no map or for loop
+//     // for loop will immediately return
+//     [1, 2, 3].forEach(async (i) => {
+//         await someAsyncOperation();
+//     });
+
+//     console.log("done");
+// }
+
+async function f2() {
+    const promises = [
+        someAsyncOperation(),
+        someAsyncOperation(),
+        someAsyncOperation(),
+    ];
+
+    for await (let result of promises) {
+        // ...
+    }
+    console.log("done");
+}
+
+// trap #3
+// no global use of await
+await someAsyncOperation();
+// 不能在全局或者普通函数中直接使用await关键字
+// await只能被用在异步函数(async function)中
+// 如果想在最外层中使用 await
+// 那么需要先定义一个异步函数
+
+// async function f3() {
+//     await someAsyncOperation();
+// }
+
+// f3();
+
+// 或者更简洁的写法
+(async () => {
+    await someAsyncOperation();
+})();
+
