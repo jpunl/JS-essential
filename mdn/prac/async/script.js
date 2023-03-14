@@ -98,3 +98,25 @@ async function fetchProducts() {
 }
 
 fetchProducts();
+
+
+fetch("https://jsonplaceholder.typicode.com/posts/1")
+    .then((response) => response.json())
+    .then((json) => { 
+        console.log(json); 
+    })
+    .catch((error) => { 
+        console.error(error);
+    })
+    .finally(() => {
+        stopLoadingAnimation();
+    });
+
+
+async function f() {
+    const response = await fetch("http://...");
+    const json = await response.json();
+    console.log(json);
+}
+
+f();
